@@ -86,6 +86,23 @@ public class MetricDataParserTest {
         }
     }
 
+    @Test
+    public void parseNodeDataTest_ServiceGroupMetrics() throws Exception {
+        monitorConfiguration.setMetricXml("src/test/resources/conf/servicegroup-metrics.xml", Stat.Stats.class);
+        Stat.Stats metricConfiguration = (Stat.Stats) monitorConfiguration.getMetricsXml();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readValue(new FileInputStream("src/test/resources/json/servicegroup.json"), JsonNode.class);
+        Stat stat = metricConfiguration.getStats()[0];
+        Map<String, String> expectedServiceGroupMetrics = getExpectedServiceGroupMetrics();
+        MetricDataParser metricDataParser = new MetricDataParser(monitorConfiguration.getMetricPrefix());
+        List<Metric> result = metricDataParser.parseNodeData(stat, node, new ObjectMapper(), "NetScaler Instance 1");
+        Assert.assertTrue(result.size() == expectedServiceGroupMetrics.size());
+        for (Metric metric : result) {
+            Assert.assertTrue(expectedServiceGroupMetrics.containsKey(metric.getMetricPath()));
+            Assert.assertTrue(expectedServiceGroupMetrics.get(metric.getMetricPath())
+                    .equals(metric.getMetricValue()));
+        }
+    }
 
     private Map<String, String> getExpectedSystemMetrics() {
         Map<String, String> expectedSystemMetrics = Maps.newHashMap();
@@ -134,6 +151,14 @@ public class MetricDataParserTest {
         expectedServiceMetrics.put(monitorConfiguration.getMetricPrefix() + "|NetScaler Instance 1|Service Metrics|Service 2|Client Connections", "20");
         expectedServiceMetrics.put(monitorConfiguration.getMetricPrefix() + "|NetScaler Instance 1|Service Metrics|Service 2|Active Transactions", "20");
         expectedServiceMetrics.put(monitorConfiguration.getMetricPrefix() + "|NetScaler Instance 1|Service Metrics|Service 2|State", "UNKNOWN");
+        return expectedServiceMetrics;
+    }
+
+    private Map<String, String> getExpectedServiceGroupMetrics() {
+        Map<String, String> expectedServiceMetrics = Maps.newHashMap();
+        expectedServiceMetrics.put(monitorConfiguration.getMetricPrefix() + "|NetScaler Instance 1|Service Group Metrics|eCBF_SSL_4443|State", "ENABLED");
+        expectedServiceMetrics.put(monitorConfiguration.getMetricPrefix() + "|NetScaler Instance 1|Service Group Metrics|Yes_Pulse_UAT_SVCGRP|State", "ENABLED");
+        expectedServiceMetrics.put(monitorConfiguration.getMetricPrefix() + "|NetScaler Instance 1|Service Group Metrics|YesRapidoUAT-SVCGRP|State", "ENABLED");
         return expectedServiceMetrics;
     }
 }
