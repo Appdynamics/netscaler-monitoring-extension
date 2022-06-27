@@ -67,7 +67,8 @@ class MetricDataParser {
             metricValue = currentNode.findValue(metricConfig.getAttr()).asText();
             if (metricValue != null) {
                 String prefix = StringUtils.trim(stat.getAlias(), "|");
-                String name = (currentNode.has("name")) ? currentNode.get("name").asText() + "|" : "";
+                String elementIdentifier = stat.getElementIdentifier() != null? stat.getElementIdentifier() : "name";
+                String name = (currentNode.has(elementIdentifier)) ? currentNode.get(elementIdentifier).asText() + "|" : "";
                 Map<String, String> propertiesMap = oMapper.convertValue(metricConfig, Map.class);
                 metric = new Metric(metricConfig.getAlias(), String.valueOf(metricValue),
                         metricPrefix + "|" + serverName + "|" + prefix + "|" + name

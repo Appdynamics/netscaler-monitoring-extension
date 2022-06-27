@@ -23,6 +23,8 @@ public class Stat {
     private String alias;
     @XmlAttribute(name = "rootElement")
     private String rootElement;
+    @XmlAttribute(name = "elementIdentifier")
+    private String elementIdentifier;
     @XmlAttribute(name = "metric-type")
     private String metricType;
     @XmlAttribute
@@ -39,6 +41,14 @@ public class Stat {
 
     public void setRootElement(String rootElement) {
         this.rootElement = rootElement;
+    }
+
+    public String getElementIdentifier() {
+        return elementIdentifier;
+    }
+
+    public void setElementIdentifier(String elementIdentifier) {
+        this.elementIdentifier = elementIdentifier;
     }
 
     public String getAlias() {

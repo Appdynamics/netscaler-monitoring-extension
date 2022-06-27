@@ -1,0 +1,22 @@
+{
+  "errorcode": 0,
+  "message": "Done",
+  "severity": "NONE",
+  "servicegroup": [
+    {
+      "servicegroupname": "eCBF_SSL_4443",
+      "state": "ENABLED",
+      "servicetype": "SSL"
+    },
+    {
+      "servicegroupname": "Yes_Pulse_UAT_SVCGRP",
+      "state": "ENABLED",
+      "servicetype": "SSL"
+    },
+    {
+      "servicegroupname": "YesRapidoUAT-SVCGRP",
+      "state": "ENABLED",
+      "servicetype": "SSL"
+    }
+  ]
+}

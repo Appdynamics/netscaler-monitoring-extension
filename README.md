@@ -130,6 +130,20 @@ using the correct stat names as per the [Citrix documentation](https://developer
 </tr>
 
 <tr>
+<td>ServiceGroup</td>
+<td>
+
+<table>
+    <tr><td><strong>Metric</strong></td><td><strong>Description</strong></td>
+    <tr><td>state</td><td>Initial state of the service group. Possible values: 
+    - Disabled: 0
+    - Enabled: 1</td></tr>
+</table>
+  
+</td>
+</tr>
+
+<tr>
 <td>System</td>
 <td>
 

@@ -49,4 +49,12 @@
             <convert str="TROFS_DOWN" value="5"/>
         </metric>
     </stat>
+
+    <stat url="/nitro/v1/stat/servicegroup" rootElement="servicegroup" elementIdentifier="servicegroupname" alias="Service Group Metrics">
+        <naming use-entry-name="true"/>
+        <metric attr="state" alias="State" aggregation-type="AVERAGE" timeRollupType="AVERAGE" clusterRollupType="INDIVIDUAL">
+            <convert str="DISABLED" value="0"/>
+            <convert str="ENABLED" value="1"/>
+        </metric>
+    </stat>
 </stats>
